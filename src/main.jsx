@@ -3,26 +3,22 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./index.css";
 
-import { createStore } from "redux";
+import { combineReducers, createStore } from "redux";
 
-function reducer(state, action) {
-  if (action.type === "changeState") {
-    return action.payload.newStateValue;
-  }
-  console.log(action);
-  return "state";
-}
-
-const store = createStore(reducer);
-console.log(store.getState());
-const action = {
-  type: "changeState",
-  payload: {
-    newStateValue: "my new state value",
-  },
+const userReducer = (state = "", action) => {
+  return state;
 };
 
-store.dispatch(action);
+const productsReducer = (state = [], action) => {
+  return state;
+};
+
+const rootReducer = combineReducers({
+  user: userReducer,
+  products: productsReducer,
+});
+
+const store = createStore(rootReducer);
 console.log(store.getState());
 
 ReactDOM.createRoot(document.getElementById("root")).render(

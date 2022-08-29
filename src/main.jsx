@@ -6,7 +6,13 @@ import "./index.css";
 import { combineReducers, createStore } from "redux";
 
 const userReducer = (state = "", action) => {
-  return state;
+  switch (action.type) {
+    case "updateUser":
+      return action.payload;
+
+    default:
+      return state;
+  }
 };
 
 const productsReducer = (state = [], action) => {
@@ -18,15 +24,28 @@ const rootReducer = combineReducers({
   products: productsReducer,
 });
 
-const store = createStore(rootReducer, {
-  user: "selim",
-  products: [
-    {
-      name: "CZLondon",
-      type: "Shoe",
-    },
-  ],
-});
+const store = createStore(
+  rootReducer,
+  {
+    user: "selim",
+    products: [
+      {
+        name: "CZLondon",
+        type: "Shoe",
+      },
+    ],
+  },
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
+
+const updateUserReducer = {
+  type: "updateUser",
+  payload: {
+    user: "selim coder",
+  },
+};
+
+store.dispatch(updateUserReducer);
 
 console.log(store.getState());
 

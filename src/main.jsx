@@ -6,9 +6,6 @@ import "./index.css";
 import { combineReducers, createStore } from "redux";
 
 const userReducer = (state = "", action) => {
-  if (action.type === "changeUserName") {
-    return action.payload.newStateValue;
-  }
   return state;
 };
 
@@ -21,30 +18,17 @@ const rootReducer = combineReducers({
   products: productsReducer,
 });
 
-const store = createStore(rootReducer);
-console.log(store.getState());
-
-const action = {
-  type: "changeUserName",
-  payload: {
-    newStateValue: "ahmet",
-  },
-};
-
-const action2 = {
-  type: "changeUserName",
-  payload: {
-    newStateValue: "mehmet",
-  },
-};
-
-store.subscribe(() => {
-  console.log("state güncellendi");
-  console.log(store.getState());
+const store = createStore(rootReducer, {
+  user: "selim",
+  products: [
+    {
+      name: "CZLondon",
+      type: "Shoe",
+    },
+  ],
 });
 
-store.dispatch(action);
-store.dispatch(action2);
+console.log(store.getState());
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

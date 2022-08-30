@@ -15,7 +15,6 @@ const App = ({ user, UpdateUserAction }) => {
 };
 
 const reduxProps = (state, props) => {
-  console.log(props);
   return state;
 };
 
@@ -23,4 +22,11 @@ const changeDispatch = {
   UpdateUserAction,
 };
 
-export default connect(reduxProps, changeDispatch)(App);
+const mergeProps = (propsFromState, propsFromDispatch, ownProps) => {
+  console.log(propsFromState);
+  console.log(propsFromDispatch);
+  console.log(ownProps);
+  return {};
+};
+
+export default connect(reduxProps, changeDispatch, mergeProps)(App);

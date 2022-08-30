@@ -1,5 +1,8 @@
-const ProductsReducer = (state = [], action) => {
-  return state;
+export const ProductsReducer = (state = [], { type, payload }) => {
+  switch (type) {
+    case "asdasd":
+      return payload.asdasd;
+    default:
+      return state;
+  }
 };
-
-export default ProductsReducer;

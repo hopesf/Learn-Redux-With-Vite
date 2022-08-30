@@ -14,7 +14,8 @@ const App = ({ user, UpdateUserAction }) => {
   );
 };
 
-const reduxProps = (state) => {
+const reduxProps = (state, props) => {
+  console.log(props);
   return state;
 };
 

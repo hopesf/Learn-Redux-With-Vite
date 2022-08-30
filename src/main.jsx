@@ -27,7 +27,7 @@ const store = createStore(
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <App count={4} />
     </Provider>
   </React.StrictMode>
 );

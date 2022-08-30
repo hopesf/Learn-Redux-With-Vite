@@ -1,6 +1,12 @@
 import { connect } from "react-redux";
 
-const App = () => {
+const App = (props) => {
+  console.log(props);
   return <div>App</div>;
 };
-export default connect()(App);
+
+const mapStateToProps = (state) => {
+  return state;
+};
+
+export default connect(mapStateToProps)(App);

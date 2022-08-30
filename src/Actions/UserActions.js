@@ -21,10 +21,12 @@ export const HandleUpdateError = () => {
 };
 
 export const GetUser = () => {
-  return (dispatch) => {
-    axios
-      .get("https://jsonplaceholder.typicode.com/users/1")
-      .then(({ data }) => dispatch(UpdateUserAction(data.name)))
-      .catch((err) => dispatch(HandleUpdateError()));
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.get("https://jsonplaceholder.typicode.com/users/1");
+      dispatch(UpdateUserAction(data.name));
+    } catch (error) {
+      dispatch(HandleUpdateError());
+    }
   };
 };

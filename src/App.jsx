@@ -1,10 +1,15 @@
+import { useEffect } from "react";
 import { connect } from "react-redux";
-import { UpdateUserAction } from "./Actions/UserActions";
+import { GetUser, UpdateUserAction } from "./Actions/UserActions";
 
-const App = ({ user, UpdateUserAction }) => {
+const App = ({ user, UpdateUserAction, GetUser }) => {
   const handleBtnClick = () => {
     UpdateUserAction("Selim Coder");
   };
+
+  useEffect(() => {
+    GetUser();
+  }, []);
 
   return (
     <div>
@@ -14,19 +19,13 @@ const App = ({ user, UpdateUserAction }) => {
   );
 };
 
-const reduxProps = (state, props) => {
+const reduxProps = (state) => {
   return state;
 };
 
 const changeDispatch = {
   UpdateUserAction,
+  GetUser,
 };
 
-const mergeProps = (propsFromState, propsFromDispatch, ownProps) => {
-  console.log(propsFromState);
-  console.log(propsFromDispatch);
-  console.log(ownProps);
-  return {};
-};
-
-export default connect(reduxProps, changeDispatch, mergeProps)(App);
+export default connect(reduxProps, changeDispatch)(App);

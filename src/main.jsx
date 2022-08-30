@@ -3,9 +3,9 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./index.css";
 //redux setup
-import { combineReducers, createStore } from "redux";
+import { compose, applyMiddleware, combineReducers, createStore } from "redux";
 import { Provider } from "react-redux";
-
+import thunk from "redux-thunk";
 //reducers
 import { UserReducer } from "./Reducers/UserReducer";
 import { ProductsReducer } from "./Reducers/ProductsReducer";
@@ -15,19 +15,20 @@ const rootReducer = combineReducers({
   products: ProductsReducer,
 });
 
+const allEnhancers = compose(applyMiddleware(thunk), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 const store = createStore(
   rootReducer,
   {
     user: "Selim",
     products: [],
   },
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  allEnhancers
 );
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Provider store={store}>
-      <App count={4} />
+      <App />
     </Provider>
   </React.StrictMode>
 );

@@ -1,34 +1,55 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
-import "./index.css";
-//redux setup
-import { compose, applyMiddleware, combineReducers, createStore } from "redux";
-import { Provider } from "react-redux";
-import thunk from "redux-thunk";
-//reducers
-import { UserReducer } from "./Reducers/UserReducer";
-import { ProductsReducer } from "./Reducers/ProductsReducer";
 
-const rootReducer = combineReducers({
-  user: UserReducer,
-  products: ProductsReducer,
+//redux setup
+import { createStore } from "redux";
+
+const initialState = {
+  count: 1,
+  Users: [],
+};
+
+const reducer = (state = initialState, action) => {
+  switch (action.type) {
+    case "ADD":
+      return {
+        ...state,
+        count: state.count + action.payload,
+      };
+    case "SUBTRACT":
+      return {
+        ...state,
+        count: state.count - action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+const store = createStore(reducer);
+
+store.subscribe(() => {
+  console.log("store değişti", store.getState());
 });
 
-const allEnhancers = compose(applyMiddleware(thunk), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
-const store = createStore(
-  rootReducer,
-  {
-    user: "Selim",
-    products: [],
-  },
-  allEnhancers
-);
+store.dispatch({
+  type: "ADD",
+  payload: 1,
+});
+
+store.dispatch({
+  type: "ADD",
+  payload: 11,
+});
+
+store.dispatch({
+  type: "SUBTRACT",
+  payload: -4,
+});
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <App />
   </React.StrictMode>
 );

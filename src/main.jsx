@@ -3,7 +3,8 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 
 //redux setup
-import { createStore } from "redux";
+import { applyMiddleware, createStore } from "redux";
+import logger from "redux-logger";
 
 const initialState = {
   count: 1,
@@ -28,12 +29,8 @@ const reducer = (state = initialState, action) => {
       return state;
   }
 };
-
-const store = createStore(reducer);
-
-store.subscribe(() => {
-  console.log("store değişti", store.getState());
-});
+const middleware = applyMiddleware(logger);
+const store = createStore(reducer, middleware);
 
 store.dispatch({
   type: "ADD",
